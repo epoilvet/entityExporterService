@@ -1,0 +1,28 @@
+{
+  "lang" : "zxx",
+  "name" : "harmonizeDrivers",
+  "description" : "",
+  "type" : "CUSTOM",
+  "version" : 2,
+  "options" : {
+    "additionalCollections" : [ ],
+    "sourceQuery" : "cts.collectionQuery([\"ingestDrivers\"])",
+    "targetEntity" : "Driver",
+    "collections" : [ "harmonizeDrivers", "Driver" ],
+    "sourceDatabase" : "data-hub-STAGING",
+    "permissions" : "rest-reader,read,rest-writer,update",
+    "sourceCollection" : "ingestDrivers",
+    "outputFormat" : "json",
+    "targetDatabase" : "data-hub-FINAL"
+  },
+  "customHook" : {
+    "module" : "",
+    "parameters" : { },
+    "user" : "",
+    "runBefore" : false
+  },
+  "modulePath" : "/custom-modules/custom/harmonizeDrivers/main.sjs",
+  "retryLimit" : 0,
+  "batchSize" : 100,
+  "threadCount" : 4
+}

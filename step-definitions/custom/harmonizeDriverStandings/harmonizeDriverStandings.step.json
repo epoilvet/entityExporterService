@@ -1,0 +1,28 @@
+{
+  "lang" : "zxx",
+  "name" : "harmonizeDriverStandings",
+  "description" : "",
+  "type" : "CUSTOM",
+  "version" : 3,
+  "options" : {
+    "additionalCollections" : [ ],
+    "sourceQuery" : "cts.collectionQuery([\"ingestDriverStandings\"])",
+    "targetEntity" : "DriverStanding",
+    "collections" : [ "harmonizeDriverStandings", "DriverStanding" ],
+    "sourceDatabase" : "data-hub-STAGING",
+    "permissions" : "rest-reader,read,rest-writer,update",
+    "sourceCollection" : "ingestDriverStandings",
+    "outputFormat" : "json",
+    "targetDatabase" : "data-hub-FINAL"
+  },
+  "customHook" : {
+    "module" : "",
+    "parameters" : { },
+    "user" : "",
+    "runBefore" : false
+  },
+  "modulePath" : "/custom-modules/custom/harmonizeDriverStandings/main.sjs",
+  "retryLimit" : 0,
+  "batchSize" : 100,
+  "threadCount" : 4
+}

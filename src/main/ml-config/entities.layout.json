@@ -1,0 +1,37 @@
+{
+  "Driver" : {
+    "x" : 0,
+    "y" : 0,
+    "width" : 254,
+    "height" : 244,
+    "vertices" : { }
+  },
+  "Race" : {
+    "x" : 0,
+    "y" : 0,
+    "width" : 237,
+    "height" : 190,
+    "vertices" : { }
+  },
+  "Circuit" : {
+    "x" : 735,
+    "y" : 185,
+    "width" : 242,
+    "height" : 244,
+    "vertices" : { }
+  },
+  "DriverStanding" : {
+    "x" : 326,
+    "y" : 240,
+    "width" : 297,
+    "height" : 163,
+    "vertices" : { }
+  },
+  "RaceStanding" : {
+    "x" : 393,
+    "y" : 87,
+    "width" : 297,
+    "height" : 163,
+    "vertices" : { }
+  }
+}

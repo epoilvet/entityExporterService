@@ -1,0 +1,155 @@
+{
+  "name" : "loadSources",
+  "description" : "",
+  "batchSize" : 100,
+  "threadCount" : 4,
+  "stopOnError" : false,
+  "options" : { },
+  "version" : 0,
+  "steps" : {
+    "1" : {
+      "name" : "ingestDrivers",
+      "description" : "",
+      "options" : {
+        "additionalCollections" : [ ],
+        "headers" : {
+          "sources" : [ {
+            "name" : "loadSources"
+          } ],
+          "createdOn" : "currentDateTime",
+          "createdBy" : "currentUser"
+        },
+        "sourceQuery" : "cts.collectionQuery([\"\"])",
+        "collections" : [ "ingestDrivers" ],
+        "permissions" : "rest-reader,read,rest-writer,update",
+        "outputFormat" : "json",
+        "targetDatabase" : "data-hub-STAGING"
+      },
+      "customHook" : {
+        "module" : "",
+        "parameters" : { },
+        "user" : "",
+        "runBefore" : false
+      },
+      "retryLimit" : 0,
+      "batchSize" : 100,
+      "threadCount" : 4,
+      "stepDefinitionName" : "default-ingestion",
+      "stepDefinitionType" : "INGESTION",
+      "fileLocations" : {
+        "inputFilePath" : "/Users/epoilvet/dev/projects/entityExporterService/data/formula-1-race-data-19502017/drivers",
+        "inputFileType" : "csv",
+        "outputURIReplacement" : ".*formula-1-race-data-19502017,''",
+        "separator" : ","
+      }
+    },
+    "2" : {
+      "name" : "ingestDriverStandings",
+      "description" : "",
+      "options" : {
+        "additionalCollections" : [ ],
+        "headers" : {
+          "sources" : [ {
+            "name" : "loadSources"
+          } ],
+          "createdOn" : "currentDateTime",
+          "createdBy" : "currentUser"
+        },
+        "sourceQuery" : "cts.collectionQuery([])",
+        "collections" : [ "ingestDriverStandings" ],
+        "permissions" : "rest-reader,read,rest-writer,update",
+        "outputFormat" : "json",
+        "targetDatabase" : "data-hub-STAGING"
+      },
+      "customHook" : {
+        "module" : "",
+        "parameters" : { },
+        "user" : "",
+        "runBefore" : false
+      },
+      "retryLimit" : 0,
+      "batchSize" : 100,
+      "threadCount" : 4,
+      "stepDefinitionName" : "default-ingestion",
+      "stepDefinitionType" : "INGESTION",
+      "fileLocations" : {
+        "inputFilePath" : "/Users/epoilvet/dev/projects/entityExporterService/data/formula-1-race-data-19502017/driverStandings",
+        "inputFileType" : "csv",
+        "outputURIReplacement" : ".*formula-1-race-data-19502017,''",
+        "separator" : ","
+      }
+    },
+    "3" : {
+      "name" : "ingestCircuits",
+      "description" : "",
+      "options" : {
+        "additionalCollections" : [ ],
+        "headers" : {
+          "sources" : [ {
+            "name" : "loadSources"
+          } ],
+          "createdOn" : "currentDateTime",
+          "createdBy" : "currentUser"
+        },
+        "sourceQuery" : "cts.collectionQuery([])",
+        "collections" : [ "ingestCircuits" ],
+        "permissions" : "rest-reader,read,rest-writer,update",
+        "outputFormat" : "json",
+        "targetDatabase" : "data-hub-STAGING"
+      },
+      "customHook" : {
+        "module" : "",
+        "parameters" : { },
+        "user" : "",
+        "runBefore" : false
+      },
+      "retryLimit" : 0,
+      "batchSize" : 100,
+      "threadCount" : 4,
+      "stepDefinitionName" : "default-ingestion",
+      "stepDefinitionType" : "INGESTION",
+      "fileLocations" : {
+        "inputFilePath" : "/Users/epoilvet/dev/projects/entityExporterService/data/formula-1-race-data-19502017/circuits",
+        "inputFileType" : "csv",
+        "outputURIReplacement" : ".*formula-1-race-data-19502017,''",
+        "separator" : ","
+      }
+    },
+    "4" : {
+      "name" : "ingestRaces",
+      "description" : "",
+      "options" : {
+        "additionalCollections" : [ ],
+        "headers" : {
+          "sources" : [ {
+            "name" : "loadSources"
+          } ],
+          "createdOn" : "currentDateTime",
+          "createdBy" : "currentUser"
+        },
+        "sourceQuery" : "cts.collectionQuery([])",
+        "collections" : [ "ingestRaces" ],
+        "permissions" : "rest-reader,read,rest-writer,update",
+        "outputFormat" : "json",
+        "targetDatabase" : "data-hub-STAGING"
+      },
+      "customHook" : {
+        "module" : "",
+        "parameters" : { },
+        "user" : "",
+        "runBefore" : false
+      },
+      "retryLimit" : null,
+      "batchSize" : 100,
+      "threadCount" : 4,
+      "stepDefinitionName" : "default-ingestion",
+      "stepDefinitionType" : "INGESTION",
+      "fileLocations" : {
+        "inputFilePath" : "/Users/epoilvet/dev/projects/entityExporterService/data/formula-1-race-data-19502017/races",
+        "inputFileType" : "csv",
+        "outputURIReplacement" : ".*formula-1-race-data-19502017,''",
+        "separator" : ","
+      }
+    }
+  }
+}
