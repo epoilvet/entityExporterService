@@ -63,7 +63,7 @@ In order to get an export of entities, the service supports the following format
 - extractFields = fields per entity to be extracted. if no field explicity exported, export all the properties
 - entityConstraints = cts query per entity to filter the data according to the conditions. Only primary entities matching all conditions will be exported (including based on direct and indirect children conditions)
 
-#### Service Output format
+### Service Output format
 {
     "http://formula1.com/Driver#1": {
         "uri": "http://formula1.com/Driver#1",
