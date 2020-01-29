@@ -22,3 +22,10 @@ For the concept, the loadinf is based on standard DHF5 ingestion step. Details c
 ## Data harmonization
 For harmonisation, we use pipes in order to add triples to the different entities we manipulate.
 
+### Driver harmonization
+Below in the pipes graph to add triples in the Driver envelope.
+![Driver harmonization in Pipe](https://github.com/epoilvet/entityExporterService/blob/master/wiki/pipes_driver.png?raw=true)
+
+### Driver harmonization
+Below in the pipes graph to add triples in the Driver standings envelope.
+![Driver harmonization in Pipe](https://github.com/epoilvet/entityExporterService/blob/master/wiki/pipes_driverstandings.png?raw=true)
