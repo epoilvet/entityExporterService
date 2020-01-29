@@ -64,6 +64,15 @@ In order to get an export of entities, the service supports the following format
 - entityConstraints = cts query per entity to filter the data according to the conditions. Only primary entities matching all conditions will be exported (including based on direct and indirect children conditions)
 
 ## Service Output format
+Output contains primary entity and nested hierarchy of secondary entities.
+- Primary Entity
+  - Secondary A Entity
+     - Secondary C Entity
+     - Secondary C Entity
+  - Secondary B Entity
+     - Secondary D Entity
+     - Secondary E Entity
+
 {
     "http://formula1.com/Driver#1": {
         "uri": "http://formula1.com/Driver#1",
