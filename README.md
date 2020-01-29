@@ -23,17 +23,17 @@ For the concept, the loadinf is based on standard DHF5 ingestion step. Details c
 ## Data harmonization
 For harmonisation, we use pipes in order to add triples to the different entities we manipulate.
 
-### Driver harmonization
+###Driver harmonization
 Below in the pipes graph to add triples in the Driver envelope.
 The graph creates the rdf:type for the Driver.
 ![Driver harmonization in Pipe](https://github.com/epoilvet/entityExporterService/blob/master/wiki/pipes_driver.png?raw=true)
 
-### Driver Standing harmonization
+## Driver Standing harmonization
 Below in the pipes graph to add triples in the Driver standings envelope.
 The graph creates the rdf:type and hasStanding predicates for the Driver Standing
 ![Driver harmonization in Pipe](https://github.com/epoilvet/entityExporterService/blob/master/wiki/pipes_driverstandings.png?raw=true)
 
-### Calling the entity exporter service
+## Calling the entity exporter service
 
 In order to get an export of entities, the service supports the following format:
  
@@ -63,7 +63,7 @@ In order to get an export of entities, the service supports the following format
 - extractFields = fields per entity to be extracted. if no field explicity exported, export all the properties
 - entityConstraints = cts query per entity to filter the data according to the conditions. Only primary entities matching all conditions will be exported (including based on direct and indirect children conditions)
 
-### Service Output format
+## Service Output format
 {
     "http://formula1.com/Driver#1": {
         "uri": "http://formula1.com/Driver#1",
