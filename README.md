@@ -59,7 +59,7 @@ In order to get an export of entities, the service supports the following format
 
 
 - primaryEntity = Main entity to be exported
-- secondaryEntities = other entities to be exported in relation to the primary entity
+- secondaryEntities = other entities to be exported in relation to the primary entity (direct or indirect connection)
 - extractFields = fields per entity to be extracted. if no field explicity exported, export all the properties
 - entityConstraints = cts query per entity to filter the data according to the conditions. Only primary entities matching all conditions will be exported (including based on direct and indirect children conditions)
 
