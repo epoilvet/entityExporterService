@@ -1,5 +1,8 @@
 var rdt = require('/MarkLogic/redaction.xqy')
 
+
+// BEGIN
+//// CHANGE this configuration for your context
 const prefix = "http://formula1.com/"
 var allPathLib = [
 
@@ -9,6 +12,9 @@ var allPathLib = [
         path: "hasStanding"
     }
 ]
+//// CHANGE this configuration for your context
+// END
+
 var passThroughPred = []
 
 function getSparqlPathFromQuery(query) {
@@ -20,16 +26,15 @@ function getSparqlPathFromQuery(query) {
         }
     ).map(entry => {
         let other = (entry.src == query.primaryEntity) ? entry.target : entry.src;
-        let instanceOf = fn.concat("?", other, " a ", "<http://formula1.com/", other, ">.")
-        return fn.concat("?", entry.src, " <", entry.path, "> ?", entry.target, ".", instanceOf)
+        let instanceOf = fn.concat("?", other, " a ", "<" + prefix, other, ">.")
+        return fn.concat("?", entry.src, " ", entry.path, " ?", entry.target, ".", instanceOf)
     }).join()
 
     let NotExistEntities = query.secondaryEntities.filter(item => fn.contains(item, "NOT EXISTS")
     ).map(item => fn.replace(item, "NOT EXISTS ", "")
     )
     let NotExistSPARQL = allPathLib.filter(path => {
-        return (NotExistEntities
-                    .indexOf(path.src) >= 0 || NotExistEntities.indexOf(path.target) >= 0
+        return (NotExistEntities.indexOf(path.src) >= 0 || NotExistEntities.indexOf(path.target) >= 0
             ) &&
             (query.primaryEntity == path.src || query.primaryEntity == path.target)
     }).map(entry => {
@@ -42,9 +47,9 @@ function getSparqlPathFromQuery(query) {
 }
 
 function getSparql(query) {
-    let sparql = `PREFIX  f1: <http://formula1.com/>
+    let sparql = `PREFIX  prefix: <${prefix}>
 SELECT DISTINCT ?${query.primaryEntity} WHERE {
-?${query.primaryEntity} a <http://formula1.com/${query.primaryEntity}>.
+?${query.primaryEntity} a <${prefix}${query.primaryEntity}>.
 ${getSparqlPathFromQuery(query)}
 }
 `
@@ -71,8 +76,10 @@ function getFields(uri, type, query) {
 function getInstance(uri) {
     let instance = cts.doc(uri)
     if (instance) {
-        instance = instance.root.envelope.instance
-        return instance[instance.info.title]
+        if(instance.root.envelope){
+            instance = instance.root.envelope.instance
+            return instance[instance.info.title]}
+        else return instance
     } else return null
 }
 
@@ -87,7 +94,7 @@ function getSparqlPredicate(paths, fromLevel, toLevel) {
 
 function getSparqlQuery(srcEntity, targetEntity, fromLevel, toLevel, srcUri) {
 
-    return fn.concat("<", srcUri, "> ", getSparqlPredicate(targetEntity, fromLevel, toLevel), " ?", targetEntity.entity, ".", " ?", targetEntity.entity, " <http://formula1.com/instanceOf> ", "<http://formula1.com/", targetEntity.entity, ">.")
+    return fn.concat("<", srcUri, "> ", getSparqlPredicate(targetEntity, fromLevel, toLevel), " ?", targetEntity.entity, ".", " ?", targetEntity.entity, " <"+prefix+"instanceOf> ", "<"+prefix+"/", targetEntity.entity, ">.")
 
 }
 
@@ -98,12 +105,13 @@ function processLevel(uris, entity, entityTree, parent, level, query) {
         for (let pathEntry of entityTree.children) {
             let allResults
             let localPath = (pathEntry.subPath != null) ? pathEntry.subPath : pathEntry.strpath
-            let sparqlQuery = `PREFIX f1: <http://formula1.com/>
+            let sparqlQuery = `PREFIX prefix: <${prefix}>
                        SELECT DISTINCT ?${entity} ?${pathEntry.entity} WHERE {
-                       ?${entity} <${localPath}> ?${pathEntry.entity}.
+                       ?${entity} ${localPath} ?${pathEntry.entity}.
                        FILTER (?${entity} IN (${uris.map(item => "<" + item + ">").join(",")}))}`
             //parent.query =sparqlQuery
             //parent.queries.push(sparqlQuery)
+
             try {
 
                 allResults = sem.sparql(sparqlQuery).toArray()
@@ -250,11 +258,11 @@ function exportNested(query, pageLength, page, redact) {
             return !fn.contains(item, "NOT EXISTS ")
         }
     )
-
+    if(ctsFilter.length==0) ctsFilter=cts.trueQuery()
     let primaryResults = fn.subsequence(sem.sparql(sparqlQuery, null, null, cts.orQuery(ctsFilter)),(page - 1) * page + 1, page *pageLength)
     let processedPredicates = []
 
-
+//return ctsFilter
     let entityTree = {
         strpath: "/",
         children: pathForQuery
@@ -265,6 +273,7 @@ function exportNested(query, pageLength, page, redact) {
 
 
     let uris = []
+
     primaryResults.toArray().map(result => {
             result = {
                 uri: result[query.primaryEntity],
@@ -278,7 +287,7 @@ function exportNested(query, pageLength, page, redact) {
 
 
     processLevel(uris, query.primaryEntity, entityTree, ODict, 0, query)
-    let results = ODict
+    let results = Object.keys(ODict).map(k => ODict[k])
 
 
     if (redact) {
